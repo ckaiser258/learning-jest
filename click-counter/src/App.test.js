@@ -58,24 +58,59 @@ test("clicking on button increments counter display", () => {
 });
 
 test("renders decrement button", () => {
-  const wrapper = setup()
-  const button = findByTestAttr(wrapper, "decrement-button")
-  expect(button.length).toBe(1)
-})
+  const wrapper = setup();
+  const button = findByTestAttr(wrapper, "decrement-button");
+  expect(button.length).toBe(1);
+});
 
 test("clicking on button decrements counter display", () => {
-  const wrapper = setup()
+  const wrapper = setup();
 
-  const incButton = findByTestAttr(wrapper, "increment-button")
-  
+  const incButton = findByTestAttr(wrapper, "increment-button");
+
   //Increment the count
-  incButton.simulate("click")
+  incButton.simulate("click");
 
-  const decButton = findByTestAttr(wrapper, "decrement-button")
+  const decButton = findByTestAttr(wrapper, "decrement-button");
 
   //Decrement the count
-  decButton.simulate("click")
+  decButton.simulate("click");
 
-  const count = findByTestAttr(wrapper, "count").text()
-  expect(count).toBe("0")
-})
+  const count = findByTestAttr(wrapper, "count").text();
+  expect(count).toBe("0");
+});
+
+test("error does not show when not needed", () => {
+  const wrapper = setup();
+  const errorDiv = findByTestAttr(wrapper, "error-message");
+  expect(errorDiv.hasClass("hidden")).toBe(true);
+});
+
+describe("counter is 0 and decrement is clicked", () => {
+  // using a describe here so I can use a "beforeEach" for shared setup
+
+  // scoping wrapper to the describe, so it can be used in beforeEach and the tests
+  let wrapper;
+  beforeEach(() => {
+    // no need to set counter value here; default value of 0 is good
+    wrapper = setup();
+
+    // find button and click
+    const button = findByTestAttr(wrapper, "decrement-button")
+    button.simulate("click")
+  })
+  test('error shows', () => {
+    const errorDiv = findByTestAttr(wrapper, "error-message")
+    expect(errorDiv.hasClass("hidden")).toBe(false)
+  })
+  test('expect count to still be 0', () => {
+    const count = findByTestAttr(wrapper, "count").text()
+    expect(count).toBe("0")
+  })
+  test("clicking increment clears the error", () => {
+    const button = findByTestAttr(wrapper, "increment-button")
+    button.simulate("click")
+    const errorDiv = findByTestAttr(wrapper, "error-message")
+    expect(errorDiv.hasClass("hidden")).toBe(true)
+  })
+});
