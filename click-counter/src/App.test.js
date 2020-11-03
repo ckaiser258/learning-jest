@@ -28,7 +28,7 @@ test("renders without crashing", () => {
  * @returns {ShallowWrapper}
  */
 const findByTestAttr = (wrapper, val) => wrapper.find(`[data-test='${val}']`);
-test("renders button", () => {
+test("renders increment button", () => {
   const wrapper = setup();
   const button = findByTestAttr(wrapper, "increment-button");
   expect(button.length).toBe(1);
@@ -56,3 +56,9 @@ test("clicking on button increments counter display", () => {
   const count = findByTestAttr(wrapper, "count").text();
   expect(count).toBe("1");
 });
+
+test("renders decrement button", () => {
+  const wrapper = setup()
+  const button = findByTestAttr(wrapper, "decrement-button")
+  expect(button.length).toBe(1)
+})

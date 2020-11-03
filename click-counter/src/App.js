@@ -17,7 +17,7 @@ function App() {
         </button>
         <button
         data-test="decrement-button"
-        onClick={() => setCount(count + 1)}
+        onClick={() => setCount(count - 1)}
         >
           Decrement counter
         </button>
