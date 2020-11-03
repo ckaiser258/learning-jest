@@ -1,35 +1,28 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      counter: 0,
-    };
-  }
-  render() {
+function App() {
+  const [count, setCount] = useState(0)
     return (
-      <div data-test="component-app">
+      <div data-test="app-component">
         <h1 data-test="counter-display">
-          The counter is currently {this.state.counter}
+          The counter is currently <span data-test="count">{count}</span>
         </h1>
         <button
           data-test="increment-button"
-          onClick={() => this.setState({ counter: this.state.counter + 1 })}
+          onClick={() => setCount(count + 1)}
         >
           Increment counter
         </button>
         <button
         data-test="decrement-button"
-        onClick={() => this.setState({counter: this.state.counter - 1})}
+        onClick={() => setCount(count + 1)}
         >
           Decrement counter
         </button>
       </div>
     );
-  }
 }
 
 export default App;
